@@ -1,0 +1,54 @@
+version: '2'
+services:
+  elasticsearch:
+    build: elastic/
+    container_name: elasticsearch
+    environment:
+      - cluster.name=docker-cluster-es5
+      - bootstrap.memory_lock=true
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    mem_limit: 1g
+
+    volumes:
+      - esdata1:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    networks:
+      - esnet
+  kibana:
+    build: kibana/
+    ports: 
+      - 5601:5601
+    depends_on: 
+      - elasticsearch
+    networks: 
+      - esnet
+  logstash:
+    build: logstash/
+    command: -f /etc/logstash/conf.d/
+    volumes:
+      - ./logstash/config:/etc/logstash/conf.d
+    ports: 
+      - 5000:5000
+    depends_on:
+      - elasticsearch
+    networks:       
+      - esnet
+volumes:
+  esdata1:
+    driver: local
+
+
+networks:
+  esnet:
+    driver: bridge
+
+

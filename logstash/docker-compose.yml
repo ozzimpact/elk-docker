@@ -1,0 +1,10 @@
+version: '2'
+services:
+  logstash1:
+    image: logstash
+    environment:
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+      - "input { stdin { } } output { stdout { } }"
+    container_name: logstash
+    ports:
+      - "5000:5000"
