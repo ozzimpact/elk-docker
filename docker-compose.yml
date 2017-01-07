@@ -4,9 +4,6 @@ services:
     build: elastic/
     container_name: elasticsearch
     environment:
-      - cluster.name=docker-cluster-es5
-      - bootstrap.memory_lock=true
-      - xpack.security.enabled=false
       - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
     ulimits:
       memlock:
@@ -18,7 +15,7 @@ services:
     mem_limit: 1g
 
     volumes:
-      - esdata1:/usr/share/elasticsearch/data
+      - ./elastic/config:/usr/share/elasticsearch/config
     ports:
       - 9200:9200
     networks:
