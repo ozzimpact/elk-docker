@@ -16,6 +16,7 @@ services:
 
     volumes:
       - esdata1:/usr/share/elasticsearch/data
+      - ./elastic/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
     ports:
       - 9200:9200
     networks:
