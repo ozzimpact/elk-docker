@@ -4,7 +4,7 @@ services:
     build: elastic/
     container_name: elasticsearch
     environment:
-      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
       memlock:
         soft: -1
@@ -15,7 +15,7 @@ services:
     mem_limit: 1g
 
     volumes:
-      - ./elastic/config:/usr/share/elasticsearch/config
+      - esdata1:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
     networks:
