@@ -1,1 +1,1 @@
-# Dockerized ELK 
+# Dockerized ELK Stack 
